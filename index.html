@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposta, Imobili&aacute;ria Personal Shopper | Salesland</title>
+<meta name="description" content="Opera&ccedil;&atilde;o de Personal Shopper Imobili&aacute;rio: curadoria, qualifica&ccedil;&atilde;o por IA e fechamento dos s&oacute;cios. Motor Base e Motor IA 1.0.">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --navy: #080E1A;
+    --navy-mid: #0C1526;
+    --navy-light: #111D33;
+    --navy-card: #0E1829;
+    --navy-card-hover: #121E34;
+    --accent: #E8613C;
+    --accent-light: #F2794F;
+    --accent-dim: #C44E2F;
+    --accent-glow: rgba(232, 97, 60, 0.10);
+    --accent-glow-soft: rgba(232, 97, 60, 0.05);
+    --white: #FFFFFF;
+    --white-95: rgba(255,255,255,0.95);
+    --white-90: rgba(255,255,255,0.90);
+    --white-80: rgba(255,255,255,0.80);
+    --white-60: rgba(255,255,255,0.60);
+    --white-40: rgba(255,255,255,0.40);
+    --white-20: rgba(255,255,255,0.20);
+    --white-15: rgba(255,255,255,0.15);
+    --white-10: rgba(255,255,255,0.10);
+    --white-08: rgba(255,255,255,0.08);
+    --white-05: rgba(255,255,255,0.05);
+    --white-04: rgba(255,255,255,0.04);
+    --white-03: rgba(255,255,255,0.03);
+    --green: #34D399;
+    --green-dim: rgba(52, 211, 153, 0.12);
+    --blue: #60A5FA;
+    --purple: #A78BFA;
+    --orange: #FBBF24;
+    --cyan: #22D3EE;
+    --red-soft: #F87171;
+  }
+
+  body {
+    font-family: 'Outfit', -apple-system, sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+  }
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9999; opacity: 0.4;
+  }
+
+  .container { max-width: 940px; margin: 0 auto; padding: 0 28px; }
+
+  /* === HERO === */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center; padding: 60px 28px; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -40%; left: 50%; transform: translateX(-50%);
+    width: 900px; height: 900px;
+    background: radial-gradient(ellipse, rgba(232, 97, 60, 0.06) 0%, rgba(232, 97, 60, 0.02) 40%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--white-10), transparent);
+  }
+  .hero-logo { width: 300px; margin-bottom: 18px; animation: fadeIn 0.8s ease; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 7px 18px; border: 1px solid rgba(232, 97, 60, 0.30); border-radius: 100px;
+    font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 16px;
+    animation: fadeIn 0.8s ease 0.1s both;
+    backdrop-filter: blur(8px); background: rgba(232, 97, 60, 0.04);
+  }
+  .hero-badge::before {
+    content: ''; width: 5px; height: 5px; border-radius: 50%;
+    background: var(--accent); animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(232, 97, 60, 0.4); }
+    50% { opacity: 0.6; box-shadow: 0 0 0 4px rgba(232, 97, 60, 0); }
+  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  .hero-pre {
+    font-size: 12px; font-weight: 500; color: var(--white-40);
+    letter-spacing: 4px; text-transform: uppercase; margin-bottom: 8px;
+    animation: fadeIn 0.8s ease 0.15s both;
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(36px, 6vw, 64px); font-weight: 400; line-height: 1.08;
+    margin-bottom: 16px; animation: fadeIn 0.8s ease 0.2s both; letter-spacing: -0.5px;
+  }
+  .hero h1 .accent {
+    background: linear-gradient(135deg, var(--accent-light), var(--accent));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; font-style: italic;
+  }
+  .hero-sub {
+    font-size: clamp(15px, 2vw, 17px); color: var(--white-60); font-weight: 400;
+    max-width: 600px; margin: 0 auto 52px;
+    animation: fadeIn 0.8s ease 0.3s both; line-height: 1.75;
+  }
+  .hero-metrics {
+    display: flex; gap: 0; align-items: stretch; animation: fadeIn 0.8s ease 0.4s both;
+    background: var(--white-03); border: 1px solid var(--white-08);
+    border-radius: 16px; overflow: hidden; backdrop-filter: blur(12px);
+  }
+  .hero-metric { text-align: center; padding: 24px 30px; position: relative; }
+  .hero-metric + .hero-metric::before {
+    content: ''; position: absolute; left: 0; top: 20%; height: 60%; width: 1px; background: var(--white-08);
+  }
+  .hero-metric-value { font-size: 30px; font-weight: 800; color: var(--accent); line-height: 1; margin-bottom: 6px; }
+  .hero-metric-label { font-size: 10px; color: var(--white-40); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; }
+
+  /* === SECTIONS === */
+  .section { padding: 88px 0; position: relative; }
+  .section + .section { border-top: 1px solid var(--white-05); }
+  .section-label {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 18px;
+  }
+  .section-label::before {
+    content: ''; width: 28px; height: 1px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+  }
+  .section h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 4vw, 42px); font-weight: 400; line-height: 1.15;
+    margin-bottom: 14px; letter-spacing: -0.3px;
+  }
+  .section-intro {
+    font-size: 15px; color: var(--white-60); max-width: 640px;
+    margin-bottom: 44px; line-height: 1.75; font-weight: 400;
+  }
+
+  /* === BEFORE/AFTER === */
+  .ba-table {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    border: 1px solid var(--white-05); border-radius: 18px; overflow: hidden;
+    background: var(--navy-card);
+  }
+  .ba-head {
+    padding: 16px 22px; font-size: 10px; font-weight: 700;
+    letter-spacing: 2.5px; text-transform: uppercase;
+    background: var(--white-03); border-bottom: 1px solid var(--white-05);
+  }
+  .ba-head.left { color: var(--red-soft); }
+  .ba-head.right { color: var(--accent); border-left: 1px solid var(--white-05); }
+  .ba-row {
+    padding: 18px 22px; font-size: 13px; color: var(--white-60);
+    line-height: 1.55; border-bottom: 1px solid var(--white-05);
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .ba-row.right { border-left: 1px solid var(--white-05); color: var(--white-80); }
+  .ba-row:last-of-type, .ba-row:nth-last-child(2) { border-bottom: none; }
+  .ba-tag { font-size: 9px; font-weight: 700; color: var(--white-40); letter-spacing: 1.5px; text-transform: uppercase; }
+  .ba-row.right .ba-tag { color: var(--accent); }
+
+  /* === LAYERS === */
+  .layers-stack { display: flex; flex-direction: column; gap: 14px; }
+  .layer-card {
+    padding: 28px 26px;
+    background: linear-gradient(160deg, var(--navy-card), var(--navy-mid));
+    border: 1px solid var(--white-05); border-radius: 18px;
+    border-left: 3px solid var(--accent);
+    transition: all 0.35s ease; position: relative; overflow: hidden;
+  }
+  .layer-card:hover { border-color: var(--white-10); border-left-color: var(--accent-light); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,0,0,0.25); }
+  .layer-card::after {
+    content: ''; position: absolute; top: 0; right: 0; width: 220px; height: 220px;
+    background: radial-gradient(circle, var(--accent-glow-soft), transparent 70%); pointer-events: none;
+  }
+  .layer-head { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; position: relative; z-index: 1; }
+  .layer-num {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; color: var(--white); flex-shrink: 0;
+    background: linear-gradient(135deg, var(--accent), var(--accent-dim));
+    box-shadow: 0 4px 16px rgba(232, 97, 60, 0.25);
+  }
+  .layer-title h3 { font-size: 17px; font-weight: 700; color: var(--white-95); margin-bottom: 3px; }
+  .layer-title .sub { font-size: 10px; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 2px; }
+  .layer-card p { font-size: 13.5px; color: var(--white-60); line-height: 1.7; margin-bottom: 14px; position: relative; z-index: 1; }
+  .layer-list { list-style: none; display: flex; flex-direction: column; gap: 8px; position: relative; z-index: 1; }
+  .layer-list li {
+    font-size: 12.5px; color: var(--white-60); padding-left: 18px;
+    position: relative; line-height: 1.55;
+  }
+  .layer-list li::before {
+    content: ''; position: absolute; left: 0; top: 8px;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 0 6px var(--accent-glow);
+  }
+
+  /* === STACK === */
+  .stack-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;
+  }
+  .stack-card {
+    padding: 26px 24px; background: var(--navy-card);
+    border: 1px solid var(--white-05); border-radius: 16px;
+    transition: all 0.35s ease;
+  }
+  .stack-card:hover { border-color: var(--white-10); background: var(--navy-card-hover); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+  .stack-tag {
+    font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 10px;
+  }
+  .stack-card h3 { font-size: 16px; font-weight: 700; color: var(--white-90); margin-bottom: 8px; }
+  .stack-card .lead { font-size: 13px; color: var(--white-60); line-height: 1.65; margin-bottom: 14px; }
+  .stack-card ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .stack-card li {
+    font-size: 12px; color: var(--white-60); padding-left: 16px;
+    position: relative; line-height: 1.55;
+  }
+  .stack-card li::before {
+    content: ''; position: absolute; left: 0; top: 7px;
+    width: 5px; height: 5px; border-radius: 50%; background: var(--green);
+    box-shadow: 0 0 6px rgba(52, 211, 153, 0.4);
+  }
+
+  /* === CADENCE === */
+  .cadence-timeline {
+    display: flex; align-items: center; gap: 0; margin: 28px 0;
+    overflow-x: auto; padding-bottom: 8px;
+  }
+  .cadence-step { display: flex; flex-direction: column; align-items: center; min-width: 70px; }
+  .cadence-dot {
+    width: 38px; height: 38px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 800; margin-bottom: 8px; transition: transform 0.2s ease;
+  }
+  .cadence-dot:hover { transform: scale(1.15); }
+  .cadence-dot.hot { background: var(--accent); color: var(--white); box-shadow: 0 0 16px rgba(232, 97, 60, 0.30); }
+  .cadence-dot.warm { background: var(--orange); color: var(--navy); box-shadow: 0 0 16px rgba(251, 191, 36, 0.25); }
+  .cadence-dot.cool { background: var(--blue); color: var(--white); box-shadow: 0 0 16px rgba(96, 165, 250, 0.25); }
+  .cadence-dot.cold { background: var(--white-08); color: var(--white-60); }
+  .cadence-label { font-size: 10px; color: var(--white-40); font-weight: 500; white-space: nowrap; }
+  .cadence-line { width: 36px; height: 2px; background: linear-gradient(90deg, var(--white-10), var(--white-05)); flex-shrink: 0; margin-top: -22px; }
+
+  /* === CHAT SIM === */
+  .chat-sim {
+    max-width: 480px; margin: 28px auto 0;
+    background: var(--navy-card); border: 1px solid var(--white-05);
+    border-radius: 20px; overflow: hidden;
+  }
+  .chat-sim-header {
+    padding: 14px 18px; background: var(--white-03); border-bottom: 1px solid var(--white-05);
+    display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; color: var(--white-80);
+  }
+  .cs-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 6px rgba(52,211,153,.5); }
+  .cs-label { font-size: 10px; color: var(--green); font-weight: 500; margin-left: auto; }
+  .chat-sim-body { padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+  .cs-msg { max-width: 82%; padding: 10px 14px; border-radius: 14px; font-size: 13px; line-height: 1.55; }
+  .cs-msg.lead { background: var(--white-05); color: var(--white-80); align-self: flex-start; border-bottom-left-radius: 4px; }
+  .cs-msg.ia { background: var(--accent); color: var(--white); align-self: flex-end; border-bottom-right-radius: 4px; }
+  .cs-msg .cs-time { font-size: 9px; margin-top: 4px; opacity: 0.5; }
+  .cs-msg.ia .cs-badge { font-size: 8px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: 0.7; margin-bottom: 4px; display: block; }
+
+  .example-label {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 12px; background: var(--accent-glow);
+    border: 1px solid rgba(232,97,60,0.15); border-radius: 6px;
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 12px; margin-top: 28px;
+  }
+
+  /* === PILLARS === */
+  .pillars-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;
+  }
+  .pillar-card {
+    padding: 26px 22px; background: var(--navy-card);
+    border: 1px solid var(--white-05); border-radius: 16px;
+    transition: all 0.3s ease;
+  }
+  .pillar-card:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.2); }
+  .pillar-icon {
+    width: 42px; height: 42px; border-radius: 11px;
+    background: var(--accent-glow); display: flex; align-items: center; justify-content: center;
+    font-size: 18px; margin-bottom: 14px;
+  }
+  .pillar-card h4 { font-size: 15px; font-weight: 700; color: var(--white-90); margin-bottom: 6px; }
+  .pillar-card p { font-size: 12.5px; color: var(--white-60); line-height: 1.65; }
+
+  /* === PRICING === */
+  .pricing-wrap { display: flex; flex-direction: column; align-items: center; gap: 22px; }
+
+  .scenario-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 12px; border-radius: 20px;
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .scenario-tag.premium { background: var(--accent-glow); border: 1px solid rgba(232, 97, 60, 0.30); color: var(--accent); }
+  .scenario-tag.alt { background: rgba(96, 165, 250, 0.10); border: 1px solid rgba(96, 165, 250, 0.25); color: var(--blue); }
+  .scenario-tag::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+
+  .pricing-main {
+    width: 100%; max-width: 720px; padding: 44px 40px;
+    background: linear-gradient(160deg, var(--navy-card), var(--navy-mid));
+    border: 1.5px solid var(--accent); border-radius: 24px; text-align: center;
+    position: relative; overflow: hidden;
+    box-shadow: 0 0 80px var(--accent-glow-soft), 0 24px 48px rgba(0,0,0,0.3);
+  }
+  .pricing-main::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-light), transparent);
+  }
+  .pricing-main::after {
+    content: ''; position: absolute; top: -100px; right: -100px; width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(232, 97, 60, 0.06), transparent 60%); pointer-events: none;
+  }
+  .pricing-label { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .pricing-title { font-family: 'DM Serif Display', serif; font-size: 17px; font-weight: 400; color: var(--white-60); margin-bottom: 24px; }
+  .pricing-deliverables {
+    list-style: none; text-align: left;
+    margin: 0 auto 26px; max-width: 520px;
+    display: flex; flex-direction: column; gap: 8px;
+    position: relative; z-index: 1;
+  }
+  .pricing-deliverables li {
+    font-size: 13.5px; color: var(--white-80); line-height: 1.55;
+    padding: 12px 16px 12px 38px; position: relative;
+    background: var(--white-03); border: 1px solid var(--white-05); border-radius: 10px;
+  }
+  .pricing-deliverables li::before {
+    content: ''; position: absolute; left: 14px; top: 17px;
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 0 8px var(--accent-glow);
+  }
+  .pricing-alt .pricing-deliverables li::before { background: var(--blue); box-shadow: 0 0 8px rgba(96, 165, 250, 0.4); }
+  .pricing-deliverables li strong { color: var(--white); font-weight: 700; }
+  .pricing-deliverables li .deliv-sub { display: block; font-size: 11.5px; color: var(--white-40); margin-top: 3px; line-height: 1.45; }
+  .pricing-amount { font-size: 60px; font-weight: 800; color: var(--white); line-height: 1; margin-bottom: 6px; letter-spacing: -1px; }
+  .pricing-amount .currency { font-size: 24px; color: var(--accent); vertical-align: super; font-weight: 700; }
+  .pricing-note { font-size: 13px; color: var(--white-40); margin-bottom: 18px; }
+  .pricing-recur-inline {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 16px; border-radius: 100px;
+    background: var(--white-04); border: 1px solid var(--white-08);
+    font-size: 12px; color: var(--white-80); font-weight: 600; margin-bottom: 26px;
+  }
+  .pricing-recur-inline strong { color: var(--accent-light); font-weight: 800; }
+
+  .payment-options {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+    text-align: left; position: relative; z-index: 1;
+  }
+  .payment-option {
+    display: flex; align-items: center; gap: 10px; padding: 14px 16px;
+    background: var(--white-03); border: 1px solid var(--white-05);
+    border-radius: 12px; transition: all 0.2s ease;
+  }
+  .payment-option:hover { background: var(--white-05); border-color: var(--white-10); }
+  .pay-badge { padding: 3px 8px; border-radius: 5px; font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; flex-shrink: 0; }
+  .pay-badge.pix { background: var(--green-dim); color: var(--green); }
+  .pay-badge.card { background: var(--white-05); color: var(--white-40); }
+  .pay-text { font-size: 13px; color: var(--white-80); font-weight: 500; }
+  .pay-text strong { color: var(--white); }
+
+  .scenario-divider { width: 100%; max-width: 720px; margin: 18px auto 4px; display: flex; align-items: center; gap: 16px; }
+  .sd-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--white-15), transparent); }
+  .sd-text { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--white-40); white-space: nowrap; }
+
+  .pricing-alt {
+    width: 100%; max-width: 720px; padding: 36px 32px;
+    background: linear-gradient(160deg, var(--navy-card), var(--navy-mid));
+    border: 1.5px solid rgba(96, 165, 250, 0.40); border-radius: 22px;
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .pricing-alt::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--blue), transparent);
+  }
+  .alt-amount { font-size: 48px; font-weight: 800; color: var(--white); line-height: 1; margin-bottom: 6px; letter-spacing: -1px; }
+  .alt-amount .currency { font-size: 20px; color: var(--blue); vertical-align: super; font-weight: 700; }
+  .alt-label { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--blue); margin-bottom: 8px; }
+
+  .diff-box {
+    width: 100%; max-width: 720px; padding: 22px 24px;
+    background: rgba(232, 97, 60, 0.06);
+    border: 1px solid rgba(232, 97, 60, 0.22);
+    border-radius: 14px;
+  }
+  .diff-box h5 {
+    font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 10px;
+  }
+  .diff-box p { font-size: 13px; color: var(--white-80); line-height: 1.65; }
+  .diff-box strong { color: var(--white); }
+
+  /* === SIDE BY SIDE === */
+  .agreement-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+  }
+  .agreement-col {
+    padding: 28px 24px; background: var(--navy-card);
+    border: 1px solid var(--white-05); border-radius: 18px;
+  }
+  .agreement-col h3 {
+    font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .agreement-col.left h3 { color: var(--blue); }
+  .agreement-col.right h3 { color: var(--accent); }
+  .agreement-item { padding: 14px 0; border-bottom: 1px solid var(--white-05); }
+  .agreement-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .agreement-item:first-child { padding-top: 0; }
+  .agreement-item h4 { font-size: 14px; font-weight: 700; color: var(--white-90); margin-bottom: 4px; }
+  .agreement-item p { font-size: 12.5px; color: var(--white-60); line-height: 1.6; }
+
+  /* === CTA === */
+  .cta-section { padding: 100px 0 80px; text-align: center; position: relative; }
+  .cta-section::before {
+    content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 400px;
+    background: radial-gradient(ellipse, var(--accent-glow-soft), transparent 70%); pointer-events: none;
+  }
+  .cta-section h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 4vw, 42px); font-weight: 400; margin-bottom: 14px; position: relative;
+  }
+  .cta-section p { font-size: 15px; color: var(--white-60); max-width: 520px; margin: 0 auto 36px; line-height: 1.7; position: relative; }
+  .cta-button {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 17px 44px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-dim));
+    color: var(--white); border-radius: 14px;
+    font-size: 16px; font-weight: 700; font-family: 'Outfit', sans-serif;
+    text-decoration: none; transition: all 0.35s ease;
+    box-shadow: 0 4px 24px rgba(232, 97, 60, 0.25), inset 0 1px 0 rgba(255,255,255,0.15);
+  }
+  .cta-button:hover { transform: translateY(-3px); box-shadow: 0 12px 48px rgba(232, 97, 60, 0.35), inset 0 1px 0 rgba(255,255,255,0.15); }
+  .cta-valid { margin-top: 18px; font-size: 11px; color: var(--white-20); font-weight: 500; letter-spacing: 0.5px; }
+
+  /* === FOOTER === */
+  .footer { padding: 36px 28px; text-align: center; border-top: 1px solid var(--white-05); }
+  .footer-brands { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 8px; }
+  .footer-brands span { font-size: 13px; font-weight: 600; color: var(--white-20); }
+  .footer-brands .x { font-size: 11px; color: var(--white-10); }
+  .footer p { font-size: 11px; color: var(--white-20); }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 768px) {
+    .ba-table { grid-template-columns: 1fr; }
+    .ba-head.right, .ba-row.right { border-left: none; border-top: 1px solid var(--white-05); }
+    .stack-grid, .pillars-grid, .agreement-grid { grid-template-columns: 1fr; }
+    .payment-options { grid-template-columns: 1fr; }
+    .hero-metrics { flex-direction: column; border-radius: 14px; }
+    .hero-metric + .hero-metric::before { width: 60%; height: 1px; top: 0; left: 20%; }
+    .pricing-main, .pricing-alt { padding: 32px 22px; }
+    .pricing-amount { font-size: 48px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <img src="logo.svg" alt="Salesland" class="hero-logo">
+  <div class="hero-badge">Proposta Comercial, Imobili&aacute;ria Personal Shopper</div>
+  <div class="hero-pre">Curadoria, IA &amp; Convers&atilde;o de Investidores</div>
+  <h1>N&atilde;o vendemos im&oacute;veis.<br><span class="accent">Criamos oportunidades.</span></h1>
+  <p class="hero-sub">Estrutura completa de aquisi&ccedil;&atilde;o, qualifica&ccedil;&atilde;o por IA e convers&atilde;o de investidores imobili&aacute;rios, para que os s&oacute;cios concentrem 100% do tempo em visitas e fechamentos, e nada mais.</p>
+
+  <div class="hero-metrics">
+    <div class="hero-metric"><div class="hero-metric-value">4</div><div class="hero-metric-label">Pilares</div></div>
+    <div class="hero-metric"><div class="hero-metric-value">4</div><div class="hero-metric-label">Camadas de filtro</div></div>
+    <div class="hero-metric"><div class="hero-metric-value">30</div><div class="hero-metric-label">Dias de entrega</div></div>
+    <div class="hero-metric"><div class="hero-metric-value">24/7</div><div class="hero-metric-label">Opera&ccedil;&atilde;o</div></div>
+  </div>
+</section>
+
+<div class="container">
+
+<!-- ============ POSICIONAMENTO ============ -->
+<section class="section">
+  <div class="section-label">Posicionamento</div>
+  <h2>Personal Shopper de<br>investimentos imobili&aacute;rios.</h2>
+  <p class="section-intro">A opera&ccedil;&atilde;o n&atilde;o ser&aacute; uma imobili&aacute;ria tradicional. Ser&aacute; uma camada de curadoria entre o mercado e o investidor, com acesso a oportunidades que n&atilde;o chegam ao mercado de massa, orienta&ccedil;&atilde;o estrat&eacute;gica durante toda a aquisi&ccedil;&atilde;o e foco em valoriza&ccedil;&atilde;o e rentabilidade real. A proposta da Lead Land &eacute; construir essa opera&ccedil;&atilde;o do zero, com IA desde o D1, gerando caixa no curto prazo sem comprometer a escalabilidade futura.</p>
+
+  <div class="pillars-grid">
+    <div class="pillar-card">
+      <div class="pillar-icon">&#127942;</div>
+      <h4>Curadoria, n&atilde;o cat&aacute;logo</h4>
+      <p>Cliente n&atilde;o navega 500 im&oacute;veis. Recebe 3 oportunidades selecionadas para o perfil, ticket e tese de investimento dele. Personal shopper, n&atilde;o portal.</p>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-icon">&#128081;</div>
+      <h4>Acesso exclusivo</h4>
+      <p>Oportunidades off-market, pr&eacute;-lan&ccedil;amentos e ativos com janela curta. O que diferencia a opera&ccedil;&atilde;o dos portais &eacute; o que o cliente n&atilde;o encontra no Google.</p>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-icon">&#128202;</div>
+      <h4>Tese antes do im&oacute;vel</h4>
+      <p>Cada recomenda&ccedil;&atilde;o vem com proje&ccedil;&atilde;o de valoriza&ccedil;&atilde;o, c&aacute;lculo de rentabilidade e an&aacute;lise de risco. O cliente compra com l&oacute;gica de investimento, n&atilde;o de impulso.</p>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-icon">&#129309;</div>
+      <h4>Relacionamento de longo prazo</h4>
+      <p>O ciclo imobili&aacute;rio &eacute; longo. Investidor que n&atilde;o comprou hoje pode comprar em 6 meses. A base &eacute; ativo perp&eacute;tuo: reinvestimentos, indica&ccedil;&otilde;es, expans&atilde;o.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRANSFORMA&Ccedil;&Atilde;O ============ -->
+<section class="section">
+  <div class="section-label">Transforma&ccedil;&atilde;o</div>
+  <h2>Antes do motor.<br>Depois do motor.</h2>
+  <p class="section-intro">Sete dimens&otilde;es da opera&ccedil;&atilde;o imobili&aacute;ria que mudam ao longo dos 30 dias de implementa&ccedil;&atilde;o. Cada linha &eacute; um indicador concreto, com respons&aacute;vel e prazo dentro do projeto.</p>
+
+  <div class="ba-table">
+    <div class="ba-head left">Imobili&aacute;ria tradicional</div>
+    <div class="ba-head right">Personal Shopper Salesland</div>
+
+    <div class="ba-row"><span class="ba-tag">Lead</span>Lead bruto entra direto no WhatsApp do s&oacute;cio. Curioso, especulador e investidor real disputam o mesmo tempo.</div>
+    <div class="ba-row right"><span class="ba-tag">Lead</span>4 camadas de filtro antes do s&oacute;cio. Curioso &eacute; descartado pelo agente de IA. S&oacute; investidor qualificado chega na agenda.</div>
+
+    <div class="ba-row"><span class="ba-tag">Pr&eacute;-atendimento</span>S&oacute;cio responde "oi" no WhatsApp &agrave;s 23h porque sen&atilde;o perde a oportunidade. Tempo de s&oacute;cio queimado em triagem.</div>
+    <div class="ba-row right"><span class="ba-tag">Pr&eacute;-atendimento</span>Agente de IA atende em segundos, qualifica perfil de investimento, tira d&uacute;vidas iniciais e agenda visita. S&oacute;cio s&oacute; entra em oportunidade real.</div>
+
+    <div class="ba-row"><span class="ba-tag">Convers&atilde;o em visita</span>Lead que n&atilde;o respondeu ao primeiro toque vira fantasma. Sem cad&ecirc;ncia, s&oacute; esperan&ccedil;a de que volte.</div>
+    <div class="ba-row right"><span class="ba-tag">Convers&atilde;o em visita</span>Cad&ecirc;ncia de follow-up automatizada. Cada lead recebe ao menos 4 toques estruturados antes de virar perdido.</div>
+
+    <div class="ba-row"><span class="ba-tag">CRM</span>Planilha de Excel disfar&ccedil;ada de gest&atilde;o. Sem etapas, sem hist&oacute;rico, sem painel. Cada s&oacute;cio com a pr&oacute;pria lista no celular.</div>
+    <div class="ba-row right"><span class="ba-tag">CRM</span>Pipeline com etapas claras, hist&oacute;rico unificado por investidor, tag de ticket potencial e fila do dia priorizada por valor.</div>
+
+    <div class="ba-row"><span class="ba-tag">Foco do s&oacute;cio</span>S&oacute;cio respondendo curioso &agrave;s 10h, dirigindo &agrave;s 14h pra visita que n&atilde;o tinha perfil, voltando &agrave;s 18h sem ter fechado nada.</div>
+    <div class="ba-row right"><span class="ba-tag">Foco do s&oacute;cio</span>S&oacute;cio s&oacute; abre o dia com agenda de visitas qualificadas. Tempo dedicado a relacionamento, visita e fechamento. O resto, a opera&ccedil;&atilde;o resolve.</div>
+
+    <div class="ba-row"><span class="ba-tag">Lead perdido</span>Base de leads n&atilde;o convertidos acumula em planilha sem dono. Nunca volta a ser trabalhada.</div>
+    <div class="ba-row right"><span class="ba-tag">Lead perdido</span>R&eacute;gua trimestral de reativa&ccedil;&atilde;o. Investidor frio &eacute; reaquecido com oferta nova ou janela de mercado.</div>
+
+    <div class="ba-row"><span class="ba-tag">Decis&atilde;o comercial</span>"Como foi a semana?", resposta por sensa&ccedil;&atilde;o. Sem dado, sem painel, sem proje&ccedil;&atilde;o.</div>
+    <div class="ba-row right"><span class="ba-tag">Decis&atilde;o comercial</span>Painel BI ao vivo. Convers&atilde;o por canal, ticket m&eacute;dio por origem, tempo de resposta, visitas agendadas vs fechadas.</div>
+  </div>
+</section>
+
+<!-- ============ 4 CAMADAS ============ -->
+<section class="section">
+  <div class="section-label">A primeira corre&ccedil;&atilde;o</div>
+  <h2>4 camadas de filtro<br>entre o an&uacute;ncio e o Fechamento.</h2>
+  <p class="section-intro">A maior fonte de perda de produtividade hoje &eacute; lead bruto chegando direto no Fechamento. A solu&ccedil;&atilde;o n&atilde;o &eacute; cortar lead, &eacute; filtrar antes que ele toque a equipe. Cada camada elimina um tipo de problema antes do pr&oacute;ximo n&iacute;vel.</p>
+
+  <div class="layers-stack">
+    <div class="layer-card">
+      <div class="layer-head">
+        <div class="layer-num">01</div>
+        <div class="layer-title">
+          <h3>Camada 01 &middot; Comunica&ccedil;&atilde;o no criativo</h3>
+          <div class="sub">Performance &middot; M&iacute;dia paga</div>
+        </div>
+      </div>
+      <p>O criativo n&atilde;o &eacute; s&oacute; atra&ccedil;&atilde;o. &Eacute; o primeiro filtro. Copy e visual calibrados para afastar curioso e atrair investidor real. Quem clica j&aacute; est&aacute; mais perto da decis&atilde;o.</p>
+      <ul class="layer-list">
+        <li>Criativos segmentados por perfil: investidor iniciante, investidor experiente, comprador de usufruto, fam&iacute;lia em busca de patrim&ocirc;nio</li>
+        <li>Copy que ancora ticket: ativo a partir de R$ X mil, rentabilidade projetada, prazo de matura&ccedil;&atilde;o</li>
+        <li>Filtros de p&uacute;blico no Meta e Google: faixa de renda, comportamento de investimento, interesse declarado</li>
+        <li>Variantes de oferta por janela: pr&eacute;-lan&ccedil;amento, ativo com prazo, oportunidade off-market</li>
+        <li>Leitura semanal de CPL, CTR e taxa de qualifica&ccedil;&atilde;o, criativo ruim morre na semana</li>
+      </ul>
+    </div>
+
+    <div class="layer-card">
+      <div class="layer-head">
+        <div class="layer-num">02</div>
+        <div class="layer-title">
+          <h3>Camada 02 &middot; Smart Page / Formul&aacute;rio Nativo</h3>
+          <div class="sub">Inclu&iacute;da no Motor IA 1.0</div>
+        </div>
+      </div>
+      <p>Antes de chegar no agente, o lead passa por uma Smart Page (Motor IA 1.0) ou por formul&aacute;rio nativo de an&uacute;ncio (Motor Base) que faz qualifica&ccedil;&atilde;o leve: ticket pretendido, finalidade (investimento ou usufruto), prazo. Quem n&atilde;o preenche, n&atilde;o passa.</p>
+      <ul class="layer-list">
+        <li>Smart Page institucional + Smart Page de vendas (Motor IA 1.0) ou formul&aacute;rio nativo Meta/Google (Motor Base)</li>
+        <li>3 a 5 perguntas-chave: ticket, finalidade, regi&atilde;o de interesse, prazo de decis&atilde;o, experi&ecirc;ncia com im&oacute;vel</li>
+        <li>Bot&atilde;o de WhatsApp com mensagem pr&eacute;-preenchida contendo as respostas do lead</li>
+        <li>UTM completo na origem: campanha, conjunto, an&uacute;ncio, rastreio at&eacute; a venda</li>
+        <li>Pixel da Meta, GA4 e GTM configurados para mensurar funil completo</li>
+      </ul>
+    </div>
+
+    <div class="layer-card">
+      <div class="layer-head">
+        <div class="layer-num">03</div>
+        <div class="layer-title">
+          <h3>Camada 03 &middot; Agente de IA de Qualifica&ccedil;&atilde;o Imobili&aacute;ria</h3>
+          <div class="sub">Cora&ccedil;&atilde;o da opera&ccedil;&atilde;o</div>
+        </div>
+      </div>
+      <p>N&atilde;o &eacute; chatbot. &Eacute; um agente especializado de qualifica&ccedil;&atilde;o imobili&aacute;ria. Atende em segundos, identifica perfil de investimento, coleta informa&ccedil;&otilde;es estrat&eacute;gicas, responde d&uacute;vidas iniciais, agenda visitas, e encaminha apenas oportunidades reais para os s&oacute;cios.</p>
+      <ul class="layer-list">
+        <li>Atendimento inicial em menos de 30 segundos, 24h por dia, sem fila</li>
+        <li>Identifica&ccedil;&atilde;o de perfil: investidor x usufruto, ticket, prazo, urg&ecirc;ncia, experi&ecirc;ncia</li>
+        <li>Coleta estrat&eacute;gica: regi&atilde;o de interesse, motiva&ccedil;&atilde;o de compra, restri&ccedil;&otilde;es financeiras</li>
+        <li>Respostas a d&uacute;vidas iniciais com base de conhecimento RAG dos ativos curados</li>
+        <li>Agendamento direto na agenda dos s&oacute;cios, com confirma&ccedil;&atilde;o e lembrete 1h antes</li>
+        <li>S&oacute; encaminha lead com ticket m&iacute;nimo definido e prazo de decis&atilde;o pr&oacute;ximo</li>
+      </ul>
+    </div>
+
+    <div class="layer-card">
+      <div class="layer-head">
+        <div class="layer-num">04</div>
+        <div class="layer-title">
+          <h3>Camada 04 &middot; Classifica&ccedil;&atilde;o no CRM</h3>
+          <div class="sub">Pipeline + fila do dia</div>
+        </div>
+      </div>
+      <p>Lead entra no CRM j&aacute; classificado por valor potencial. Os s&oacute;cios v&ecirc;em primeiro os investidores de alto ticket, depois m&eacute;dio, depois explorat&oacute;rio. Foco autom&aacute;tico no que tem maior probabilidade de fechar com melhor margem.</p>
+      <ul class="layer-list">
+        <li>Pipeline com etapas claras (novo, qualificado, visita agendada, proposta, fechado, perdido)</li>
+        <li>Campos obrigat&oacute;rios no card: ticket potencial, finalidade, regi&atilde;o, prazo, origem</li>
+        <li>Tag autom&aacute;tica de prioridade puxada da Camada 03 (alta, m&eacute;dia, baixa)</li>
+        <li>Painel "fila do dia" mostrando os investidores de maior valor a serem trabalhados</li>
+        <li>Alerta autom&aacute;tico quando lead de alto ticket fica mais de 1h sem resposta</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AGENTE IA - DESTAQUE ============ -->
+<section class="section">
+  <div class="section-label">O cora&ccedil;&atilde;o do motor</div>
+  <h2>Agente Especializado<br>de Qualifica&ccedil;&atilde;o Imobili&aacute;ria.</h2>
+  <p class="section-intro">N&atilde;o &eacute; chatbot gen&eacute;rico. &Eacute; um agente treinado especificamente para conduzir uma conversa de investimento imobili&aacute;rio, com tom consultivo, conhecimento dos ativos curados e crit&eacute;rios claros de qualifica&ccedil;&atilde;o.</p>
+
+  <div class="example-label">&#128172; Simula&ccedil;&atilde;o de atendimento</div>
+  <div class="chat-sim">
+    <div class="chat-sim-header">
+      <div class="cs-dot"></div>
+      Marcelo Andrade, WhatsApp
+      <span class="cs-label">Agente ativo</span>
+    </div>
+    <div class="chat-sim-body">
+      <div class="cs-msg lead">Oi, vi o an&uacute;ncio sobre oportunidade de investimento imobili&aacute;rio. Como funciona?<div class="cs-time">14:08</div></div>
+      <div class="cs-msg ia"><span class="cs-badge">Personal Shopper</span>Ol&aacute;, Marcelo! Boa tarde. Diferente de uma imobili&aacute;ria tradicional, n&oacute;s atuamos como personal shopper: selecionamos para voc&ecirc; oportunidades exclusivas, com tese de valoriza&ccedil;&atilde;o e rentabilidade projetada. Antes de te apresentar algo, posso entender melhor o seu perfil?<div class="cs-time">14:08</div></div>
+      <div class="cs-msg lead">Pode sim.<div class="cs-time">14:09</div></div>
+      <div class="cs-msg ia"><span class="cs-badge">Personal Shopper</span>A compra seria para investimento (valoriza&ccedil;&atilde;o ou loca&ccedil;&atilde;o) ou para usufruto pr&oacute;prio? E qual faixa de ticket voc&ecirc; est&aacute; considerando?<div class="cs-time">14:09</div></div>
+      <div class="cs-msg lead">Investimento. Algo entre 800 mil e 1,2 milh&atilde;o.<div class="cs-time">14:11</div></div>
+      <div class="cs-msg ia"><span class="cs-badge">Personal Shopper</span>Perfeito. Para essa faixa temos 2 oportunidades em curadoria ativa: um ativo off-market na zona oeste com proje&ccedil;&atilde;o de 18% no ciclo e um pr&eacute;-lan&ccedil;amento com janela de entrada at&eacute; sexta. Quer que eu agende uma conversa com um dos nossos s&oacute;cios para te apresentar os n&uacute;meros?<div class="cs-time">14:11</div></div>
+      <div class="cs-msg lead">Sim, pode agendar pra quinta &agrave; tarde.<div class="cs-time">14:12</div></div>
+      <div class="cs-msg ia"><span class="cs-badge">Personal Shopper</span>Agendado. Quinta, 15h, com o Rafael, nosso s&oacute;cio respons&aacute;vel pela curadoria nessa faixa. Voc&ecirc; vai receber link da videochamada e um teaser dos dois ativos por aqui. At&eacute; l&aacute;!<div class="cs-time">14:12</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOLLOW-UP ============ -->
+<section class="section">
+  <div class="section-label">Recupera&ccedil;&atilde;o</div>
+  <h2>Lead que n&atilde;o respondeu<br>n&atilde;o &eacute; lead perdido.</h2>
+  <p class="section-intro">No mercado imobili&aacute;rio, o ciclo de decis&atilde;o &eacute; longo. Muitos investidores n&atilde;o compram na primeira abordagem. A cad&ecirc;ncia de follow-up automatizada cuida disso, pelo menos 4 toques estruturados antes do lead ser marcado como perdido, e r&eacute;gua trimestral de reativa&ccedil;&atilde;o para a base inteira.</p>
+
+  <div class="cadence-timeline">
+    <div class="cadence-step"><div class="cadence-dot hot">D0</div><div class="cadence-label">&lt; 5 min</div></div>
+    <div class="cadence-line"></div>
+    <div class="cadence-step"><div class="cadence-dot hot">D1</div><div class="cadence-label">24h</div></div>
+    <div class="cadence-line"></div>
+    <div class="cadence-step"><div class="cadence-dot warm">D3</div><div class="cadence-label">3 dias</div></div>
+    <div class="cadence-line"></div>
+    <div class="cadence-step"><div class="cadence-dot warm">D7</div><div class="cadence-label">7 dias</div></div>
+    <div class="cadence-line"></div>
+    <div class="cadence-step"><div class="cadence-dot cool">D14</div><div class="cadence-label">14 dias</div></div>
+    <div class="cadence-line"></div>
+    <div class="cadence-step"><div class="cadence-dot cold">D30</div><div class="cadence-label">30 dias</div></div>
+    <div class="cadence-line"></div>
+    <div class="cadence-step"><div class="cadence-dot cold">D90</div><div class="cadence-label">Reativa&ccedil;&atilde;o</div></div>
+  </div>
+
+  <div class="layers-stack" style="margin-top: 24px;">
+    <div class="layer-card">
+      <div class="layer-head">
+        <div class="layer-num">&#9851;</div>
+        <div class="layer-title">
+          <h3>Cad&ecirc;ncia de 4 toques + reativa&ccedil;&atilde;o trimestral</h3>
+          <div class="sub">Recupera&ccedil;&atilde;o &middot; Sucesso do cliente</div>
+        </div>
+      </div>
+      <p>Cada lead recebe pelo menos 4 toques antes de virar perdido. Mensagens contextualizadas por est&aacute;gio, varia&ccedil;&atilde;o de tom e abordagem por toque, pausa autom&aacute;tica quando o lead responde. Depois da compra, o investidor continua na r&eacute;gua: novas oportunidades, reinvestimentos, indica&ccedil;&otilde;es e expans&atilde;o de portf&oacute;lio.</p>
+      <ul class="layer-list">
+        <li>R&eacute;gua de 4 toques por est&aacute;gio do funil, com varia&ccedil;&atilde;o de tom (boas-vindas, valor, prova social, escassez)</li>
+        <li>Mensagens personalizadas por perfil (investidor, usufruto, primeira compra, recorrente)</li>
+        <li>Pausa autom&aacute;tica quando o lead responde, sem sequ&ecirc;ncia robotizada</li>
+        <li>R&eacute;gua de reativa&ccedil;&atilde;o trimestral para a base inteira (lead frio + cliente p&oacute;s-compra)</li>
+        <li>Sucesso do cliente: acompanhamento de aporte, janela de reinvestimento e indica&ccedil;&otilde;es</li>
+        <li>M&eacute;trica de recupera&ccedil;&atilde;o acompanhada no painel BI (Motor IA 1.0)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PILHA TECNOL&Oacute;GICA ============ -->
+<section class="section">
+  <div class="section-label">Pilha tecnol&oacute;gica</div>
+  <h2>Tudo o que vai estar<br>rodando dentro da opera&ccedil;&atilde;o.</h2>
+  <p class="section-intro">A Lead Land n&atilde;o vende ferramenta solta. Vende o sistema todo amarrado. Abaixo est&aacute; o stack que vai estar configurado, integrado e funcionando dentro da opera&ccedil;&atilde;o ao longo dos 30 dias.</p>
+
+  <div class="stack-grid">
+    <div class="stack-card">
+      <div class="stack-tag">CRM &middot; Pipeline e Follow-up</div>
+      <h3>CRM Imobili&aacute;rio</h3>
+      <p class="lead">Cora&ccedil;&atilde;o do motor comercial. Centraliza investidores, pipeline, hist&oacute;rico de conversas e a fila do dia. Todas as regras de neg&oacute;cio embutidas desde o D1.</p>
+      <ul>
+        <li>Pipeline imobili&aacute;rio (novo, qualificado, visita, proposta, fechado, perdido)</li>
+        <li>Campos obrigat&oacute;rios: ticket, finalidade, regi&atilde;o, prazo, origem</li>
+        <li>Automa&ccedil;&otilde;es de follow-up por est&aacute;gio</li>
+        <li>Tag autom&aacute;tica de prioridade (alta, m&eacute;dia, baixa)</li>
+        <li>Painel fila do dia: investidores de maior valor priorizados</li>
+      </ul>
+    </div>
+
+    <div class="stack-card">
+      <div class="stack-tag">IA &middot; Canal principal</div>
+      <h3>Agente de IA + WhatsApp</h3>
+      <p class="lead">Agente especializado em qualifica&ccedil;&atilde;o imobili&aacute;ria conectado ao WhatsApp Business. Sem instabilidade, com filtro anti-loop e mensagens fora da janela de 24h via templates aprovados.</p>
+      <ul>
+        <li>Webhook integrado ao CRM: cada conversa gera card autom&aacute;tico</li>
+        <li>Anti-loop ativo, sem retrabalho</li>
+        <li>Base de conhecimento RAG com ativos curados</li>
+        <li>Disparos de follow-up via API por sequ&ecirc;ncia</li>
+        <li>Templates aprovados para mensagens fora de janela</li>
+      </ul>
+    </div>
+
+    <div class="stack-card">
+      <div class="stack-tag">Performance &middot; M&iacute;dia</div>
+      <h3>Meta Ads + Google Ads</h3>
+      <p class="lead">Gera&ccedil;&atilde;o de demanda qualificada com leitura unificada. Campanhas separadas por perfil, criativos com filtro de ticket embutido, otimiza&ccedil;&atilde;o cont&iacute;nua de qualidade de lead.</p>
+      <ul>
+        <li>Planejamento estrat&eacute;gico de aquisi&ccedil;&atilde;o de leads</li>
+        <li>Campanhas segmentadas por perfil de investidor</li>
+        <li>Variantes de oferta por janela e sazonalidade</li>
+        <li>Otimiza&ccedil;&atilde;o cont&iacute;nua da qualidade dos leads</li>
+        <li>Rastreio at&eacute; a venda com UTM, Pixel e GA4</li>
+      </ul>
+    </div>
+
+    <div class="stack-card">
+      <div class="stack-tag">BI &middot; Decis&atilde;o</div>
+      <h3>Painel BI de Comando</h3>
+      <p class="lead">Decis&atilde;o deixa de ser opini&atilde;o. Painel &uacute;nico liga CRM, Meta Ads, Google Ads e GA4 numa vis&atilde;o s&oacute;. Atualizado em tempo real (Motor IA 1.0).</p>
+      <ul>
+        <li>Convers&atilde;o por canal de origem (Meta, Google, indica&ccedil;&atilde;o, org&acirc;nico)</li>
+        <li>Ticket m&eacute;dio por origem e por tipo de investidor</li>
+        <li>Tempo m&eacute;dio de resposta por etapa do funil</li>
+        <li>Funil completo: impress&atilde;o &rarr; clique &rarr; lead &rarr; qualificado &rarr; visita &rarr; fechado</li>
+        <li>ROAS por campanha com leitura unificada Meta + Google</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INVESTIMENTO ============ -->
+<section class="section">
+  <div class="section-label">Investimento</div>
+  <p class="section-intro" style="margin-top: 8px;">Motor Base como ponto de entrada para gerar caixa r&aacute;pido. Motor IA 1.0 como vers&atilde;o recomendada: adiciona Smart Page institucional, follow-up autom&aacute;tico e tracking avan&ccedil;ado, cobrindo a opera&ccedil;&atilde;o de ponta a ponta. Cada andar constru&iacute;do em cima do anterior, sem refazer funda&ccedil;&atilde;o.</p>
+
+  <div class="pricing-wrap">
+
+    <!-- ===== MOTOR IA 1.0 - RECOMENDADO ===== -->
+    <div class="pricing-main">
+      <div class="scenario-tag premium">Recomendado</div>
+      <div class="pricing-label">Motor IA 1.0</div>
+      <div class="pricing-title">Opera&ccedil;&atilde;o completa de aquisi&ccedil;&atilde;o, qualifica&ccedil;&atilde;o e convers&atilde;o</div>
+      <ul class="pricing-deliverables">
+        <li><strong>CRM imobili&aacute;rio</strong> com microagentes embutidos no fluxo (cadastro, passagem, repasse humano, repasse de venda)</li>
+        <li><strong>Agente de IA de Atendimento</strong> no WhatsApp, com qualifica&ccedil;&atilde;o de perfil de investidor e agendamento direto</li>
+        <li><strong>Painel BI unificado</strong> ligando CRM, Meta Ads, Google Ads e GA4 numa s&oacute; vis&atilde;o</li>
+        <li><strong>Diagn&oacute;stico de produto e oferta</strong><span class="deliv-sub">posicionamento de uma oferta irresist&iacute;vel ao mercado, com tese, &acirc;ncoras de valor e gatilhos de decis&atilde;o</span></li>
+        <li><strong>Treinamento comercial</strong> dos s&oacute;cios e do time de fechamento, com playbook documentado</li>
+        <li><strong>1 P&aacute;gina Institucional + 1 Smart Page de vendas</strong> servindo como filtro pr&eacute;-WhatsApp</li>
+        <li><strong>Cad&ecirc;ncia de Follow-up automatizada</strong> com r&eacute;gua de 4 toques + reativa&ccedil;&atilde;o trimestral</li>
+        <li><strong>Tracking avan&ccedil;ado</strong> com Pixel da Meta, GA4 e GTM configurados para mensurar funil completo at&eacute; a venda</li>
+        <li><strong>3 meses de Performance inclusos</strong> (Meta Ads + Google Ads, gest&atilde;o e otimiza&ccedil;&atilde;o)</li>
+      </ul>
+      <div class="pricing-amount"><span class="currency">R$</span> 18.000</div>
+      <div class="pricing-note">Implementa&ccedil;&atilde;o &uacute;nica, com 3 meses de performance inclusos</div>
+      <div class="pricing-recur-inline">Recorr&ecirc;ncia <strong>R$ 4.000/m&ecirc;s</strong> &middot; <span style="color: var(--white-60); font-weight: 500;">s&oacute; come&ccedil;a a cobrar ap&oacute;s os 3 meses iniciais</span></div>
+      <div class="payment-options">
+        <div class="payment-option">
+          <div class="pay-badge pix">Pix</div>
+          <div class="pay-text">Pagamento &agrave; vista via <strong>Pix</strong></div>
+        </div>
+        <div class="payment-option">
+          <div class="pay-badge card">Cart&atilde;o</div>
+          <div class="pay-text">At&eacute; <strong>3x sem juros</strong> no cart&atilde;o</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Divisor -->
+    <div class="scenario-divider">
+      <div class="sd-line"></div>
+      <div class="sd-text">ou comece com</div>
+      <div class="sd-line"></div>
+    </div>
+
+    <!-- ===== MOTOR BASE ===== -->
+    <div class="pricing-alt">
+      <div class="scenario-tag alt">Entrada Estrat&eacute;gica</div>
+      <div class="alt-label">Motor Base</div>
+      <div class="pricing-title" style="color: var(--white-60);">Ponto de entrada enxuto, para come&ccedil;ar a gerar caixa j&aacute;</div>
+      <ul class="pricing-deliverables">
+        <li><strong>CRM imobili&aacute;rio</strong> com todas as regras de neg&oacute;cio embutidas (pipeline, campos obrigat&oacute;rios, classifica&ccedil;&atilde;o por ticket)</li>
+        <li><strong>Agente de IA de Atendimento</strong> no WhatsApp, integrado ao CRM</li>
+        <li><strong>Treinamento comercial inicial</strong> dos s&oacute;cios para opera&ccedil;&atilde;o do motor</li>
+        <li><strong>3 meses de Performance inclusos</strong> (Meta Ads + Google Ads, gest&atilde;o e otimiza&ccedil;&atilde;o)</li>
+      </ul>
+      <div class="alt-amount"><span class="currency">R$</span> 15.000</div>
+      <div class="pricing-note">Implementa&ccedil;&atilde;o &uacute;nica, com 3 meses de performance inclusos</div>
+      <div class="pricing-recur-inline">Recorr&ecirc;ncia <strong style="color: var(--blue);">R$ 3.000/m&ecirc;s</strong> &middot; <span style="color: var(--white-60); font-weight: 500;">s&oacute; come&ccedil;a a cobrar ap&oacute;s os 3 meses iniciais</span></div>
+      <div class="payment-options">
+        <div class="payment-option">
+          <div class="pay-badge pix">Pix</div>
+          <div class="pay-text">Pagamento &agrave; vista via <strong>Pix</strong></div>
+        </div>
+        <div class="payment-option">
+          <div class="pay-badge card">Cart&atilde;o</div>
+          <div class="pay-text">At&eacute; <strong>3x sem juros</strong> no cart&atilde;o</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Diferen&ccedil;a -->
+    <div class="diff-box">
+      <h5>A diferen&ccedil;a dos R$ 3.000</h5>
+      <p>O <strong>Motor Base</strong> entrega o cora&ccedil;&atilde;o da opera&ccedil;&atilde;o: CRM, agente de IA integrado com todas as regras de neg&oacute;cio, treinamento comercial inicial e 3 meses de performance inclusos. <strong>Suficiente para come&ccedil;ar a gerar caixa j&aacute;.</strong><br><br>O <strong>Motor IA 1.0</strong> adiciona o que escala convers&atilde;o: <strong>1 P&aacute;gina Institucional + 1 Smart Page de vendas</strong> servindo como filtro pr&eacute;-WhatsApp, <strong>cad&ecirc;ncia de follow-up automatizada</strong> e <strong>tracking avan&ccedil;ado</strong> com painel BI de comando. R$ 3.000 a mais na entrada que se pagam no primeiro m&ecirc;s pelo aumento de visitas qualificadas.<br><br><strong style="color: var(--accent-light);">Em ambos os pacotes</strong>, os 3 primeiros meses j&aacute; cobrem performance e opera&ccedil;&atilde;o, sem cobran&ccedil;a de recorr&ecirc;ncia. A mensalidade s&oacute; come&ccedil;a a ser cobrada a partir do 4&ordm; m&ecirc;s: R$ 4.000 no Motor IA 1.0 e R$ 3.000 no Motor Base.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ ACORDO LADO A LADO ============ -->
+<section class="section">
+  <div class="section-label">O acordo, lado a lado</div>
+  <h2>O que cada parte entrega<br>na parceria.</h2>
+  <p class="section-intro">Um acordo s&oacute; funciona quando os dois lados sabem exatamente o que est&atilde;o dando e o que est&atilde;o recebendo. Abaixo, sem rodeio, o que cabe a cada um nos pr&oacute;ximos 30 dias.</p>
+
+  <div class="agreement-grid">
+    <div class="agreement-col left">
+      <h3>Os s&oacute;cios entregam</h3>
+      <div class="agreement-item">
+        <h4>Acesso completo aos sistemas</h4>
+        <p>WhatsApp Business, Meta Business, Google Ads, dom&iacute;nio e e-mails da opera&ccedil;&atilde;o. Sem isso, a Lead Land n&atilde;o consegue mexer no motor.</p>
+      </div>
+      <div class="agreement-item">
+        <h4>Curadoria dos ativos</h4>
+        <p>Decis&atilde;o sobre quais im&oacute;veis entram na pasta, qual a tese, qual o ticket. A IA s&oacute; recomenda o que voc&ecirc;s autorizaram.</p>
+      </div>
+      <div class="agreement-item">
+        <h4>Disponibilidade para treinamento</h4>
+        <p>Sess&otilde;es ao vivo ao longo dos 30 dias. Quem n&atilde;o treina, n&atilde;o opera o motor novo, e o motor passa a depender da Lead Land para sempre.</p>
+      </div>
+      <div class="agreement-item">
+        <h4>Decis&atilde;o r&aacute;pida em pontos cr&iacute;ticos</h4>
+        <p>Quando a Lead Land traz uma escolha de criativo, oferta ou fluxo, os s&oacute;cios respondem em at&eacute; 48h. Decis&atilde;o lenta trava cronograma.</p>
+      </div>
+      <div class="agreement-item">
+        <h4>Confian&ccedil;a no m&eacute;todo</h4>
+        <p>O motor vai mexer em coisas que est&atilde;o acomodadas hoje. Mexer d&oacute;i. A opera&ccedil;&atilde;o precisa estar disposta a mudar para ver o salto.</p>
+      </div>
+    </div>
+
+    <div class="agreement-col right">
+      <h3>A Lead Land entrega</h3>
+      <div class="agreement-item">
+        <h4>Implementa&ccedil;&atilde;o completa em 30 dias</h4>
+        <p>N&atilde;o &eacute; consultoria &agrave; dist&acirc;ncia. &Eacute; a Lead Land configurando CRM, integrando WhatsApp, treinando o agente de IA, montando os criativos e o painel BI.</p>
+      </div>
+      <div class="agreement-item">
+        <h4>Cronograma com marcos claros</h4>
+        <p>D7, D15, D22, D30. Cada marco tem entrega vis&iacute;vel e mensur&aacute;vel. Se algum marco passar sem entrega, &eacute; conversa pra ter, n&atilde;o problema pra esconder.</p>
+      </div>
+      <div class="agreement-item">
+        <h4>Acompanhamento cont&iacute;nuo</h4>
+        <p>Reuni&atilde;o semanal durante a implementa&ccedil;&atilde;o + Growth Review mensal na recorr&ecirc;ncia. Leitura de painel, ajuste t&aacute;tico, plano dos pr&oacute;ximos 30 dias.</p>
+      </div>
+      <div class="agreement-item">
+        <h4>Manuten&ccedil;&atilde;o do motor</h4>
+        <p>Recorr&ecirc;ncia mensal cobrada s&oacute; a partir do 4&ordm; m&ecirc;s, cobre manuten&ccedil;&atilde;o do CRM, otimiza&ccedil;&atilde;o do agente de IA, novos fluxos e ajustes na base de conhecimento. Custos de tokens inclusos. R$ 4.000 no Motor IA 1.0, R$ 3.000 no Motor Base.</p>
+      </div>
+      <div class="agreement-item">
+        <h4>Compromisso com o salto operacional</h4>
+        <p>O alvo &eacute; sair de "s&oacute;cio respondendo lead bruto" para "s&oacute;cio s&oacute; em visita qualificada" em 30 dias. Se a gente n&atilde;o bater os marcos, &eacute; problema da gente, n&atilde;o de voc&ecirc;s.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<!-- ============ CTA ============ -->
+<section class="cta-section">
+  <h2>Topa construir<br>o alicerce?</h2>
+  <p>Se estiver alinhado dos dois lados, kickoff em 5 dias &uacute;teis. Primeira entrega vis&iacute;vel em D7. Marco D15 com o agente de IA atendendo o primeiro lead real.</p>
+  <a href="https://wa.me/5585999999999?text=Quero%20fechar%20a%20proposta%20da%20Imobili%C3%A1ria%20Personal%20Shopper" class="cta-button">Fechar acordo &rarr;</a>
+  <div class="cta-valid">Proposta v&aacute;lida por 15 dias</div>
+</section>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-brands">
+    <span>Salesland</span>
+    <span class="x">&mdash;</span>
+    <span>Imobili&aacute;ria Personal Shopper</span>
+  </div>
+  <p>Proposta Comercial, Junho 2026, Documento confidencial</p>
+</div>
+
+</body>
+</html>
