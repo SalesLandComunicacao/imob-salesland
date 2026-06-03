@@ -409,6 +409,119 @@
     color: var(--brand-bright); margin-bottom: 12px; margin-top: 28px;
   }
 
+  /* === STAT STRIP (produtividade dos s&oacute;cios) === */
+  .stat-strip {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    background: var(--brand); border-radius: 20px; overflow: hidden;
+    box-shadow: 0 20px 40px rgba(11, 37, 69, 0.18);
+  }
+  .stat-cell {
+    padding: 32px 22px; text-align: center; color: #fff;
+    position: relative;
+  }
+  .stat-cell + .stat-cell::before {
+    content: ''; position: absolute; left: 0; top: 22%; height: 56%; width: 1px;
+    background: rgba(255, 255, 255, 0.14);
+  }
+  .stat-cell .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(34px, 4vw, 48px); line-height: 1;
+    margin-bottom: 8px; color: #fff;
+  }
+  .stat-cell .stat-num .accent { color: #9CC3F0; font-style: italic; }
+  .stat-cell .stat-label {
+    font-size: 11px; font-weight: 600; color: rgba(255, 255, 255, 0.85);
+    line-height: 1.45; max-width: 180px; margin: 0 auto;
+  }
+  .stat-claim {
+    margin-top: 22px; text-align: center;
+    font-size: 14.5px; color: var(--body); font-style: italic;
+    max-width: 640px; margin-left: auto; margin-right: auto;
+  }
+  .stat-claim strong { color: var(--ink); font-weight: 700; font-style: normal; }
+
+  /* === ASSET CARDS (a base &eacute; ativo) === */
+  .asset-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  }
+  .asset-card {
+    padding: 30px 26px; background: var(--surface);
+    border: 1px solid var(--border); border-radius: 18px;
+    transition: all 0.35s ease; position: relative; overflow: hidden;
+  }
+  .asset-card:hover {
+    transform: translateY(-3px); box-shadow: 0 12px 32px rgba(11, 37, 69, 0.08);
+    border-color: var(--brand-bright);
+  }
+  .asset-card .asset-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 38px; color: var(--brand-bright); line-height: 1;
+    margin-bottom: 16px; opacity: 0.45;
+  }
+  .asset-card h4 {
+    font-size: 17px; font-weight: 700; color: var(--ink); margin-bottom: 8px;
+  }
+  .asset-card p {
+    font-size: 13.5px; color: var(--body); line-height: 1.65; margin-bottom: 14px;
+  }
+  .asset-card ul {
+    list-style: none; display: flex; flex-direction: column; gap: 6px;
+  }
+  .asset-card ul li {
+    font-size: 12.5px; color: var(--muted); padding-left: 16px;
+    position: relative; line-height: 1.55;
+  }
+  .asset-card ul li::before {
+    content: ''; position: absolute; left: 0; top: 7px;
+    width: 5px; height: 5px; border-radius: 50%; background: var(--brand-bright);
+  }
+
+  /* === CADENCE MINI === */
+  .cadence-timeline {
+    display: flex; align-items: center; gap: 0;
+    margin: 14px 0 6px; overflow-x: auto; padding-bottom: 4px;
+  }
+  .cadence-step { display: flex; flex-direction: column; align-items: center; min-width: 52px; }
+  .cadence-dot {
+    width: 30px; height: 30px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 800; margin-bottom: 6px;
+    color: #fff;
+  }
+  .cadence-dot.hot { background: var(--brand-bright); }
+  .cadence-dot.warm { background: var(--brand); }
+  .cadence-dot.cool { background: var(--brand-light); }
+  .cadence-dot.cold { background: var(--muted); }
+  .cadence-label {
+    font-size: 9px; color: var(--muted); font-weight: 600;
+    white-space: nowrap;
+  }
+  .cadence-line {
+    width: 18px; height: 2px; background: var(--border);
+    flex-shrink: 0; margin-top: -18px;
+  }
+
+  /* === OUTCOMES CHECKLIST === */
+  .outcomes-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+  }
+  .outcome-item {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 18px 22px; background: var(--surface);
+    border: 1px solid var(--border); border-radius: 12px;
+    transition: all 0.2s ease;
+  }
+  .outcome-item:hover { background: var(--bg-soft); border-color: var(--brand-light); }
+  .outcome-check {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--green-dim); color: var(--green);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 14px; flex-shrink: 0;
+  }
+  .outcome-item p {
+    font-size: 14px; color: var(--ink); font-weight: 600; line-height: 1.45;
+  }
+
   /* === VALORES PADR&Otilde;ES === */
   .values-stack {
     display: flex; flex-direction: column; gap: 14px;
@@ -563,6 +676,10 @@
     .phase-deliverables { grid-template-columns: 1fr; }
     .value-block { flex-direction: column; align-items: flex-start; gap: 12px; }
     .value-block .v-price { text-align: left; align-self: flex-start; font-size: 24px; }
+    .stat-strip { grid-template-columns: repeat(2, 1fr); }
+    .stat-cell + .stat-cell::before { display: none; }
+    .stat-cell:nth-child(3), .stat-cell:nth-child(4) { border-top: 1px solid rgba(255,255,255,.14); }
+    .asset-grid, .outcomes-grid { grid-template-columns: 1fr; }
     .phase-card { padding: 32px 22px; }
     .hero-pillars { flex-direction: column; align-items: stretch; }
     .hero-pillar { justify-content: center; }
@@ -685,9 +802,37 @@
     </div>
     <div>
       <h4>Os tr&ecirc;s canais funcionam orquestrados, n&atilde;o isolados.</h4>
-      <p>Instagram alimenta de cima. Google captura a inten&ccedil;&atilde;o de quem j&aacute; quer comprar. Site converte os dois fluxos. O Pilar 1 estrutura essa tr&iacute;ade; o Pilar 2 abastece com tr&aacute;fego pago e qualifica&ccedil;&atilde;o por IA.</p>
+      <p>Instagram alimenta de cima. Google captura a inten&ccedil;&atilde;o de quem j&aacute; quer comprar. Site converte os dois fluxos. O Pilar 1 estrutura essa tr&iacute;ade como <strong style="color: #fff;">base org&acirc;nica</strong>, e &eacute; essa base que <strong style="color: #fff;">multiplica o retorno do tr&aacute;fego pago</strong> quando o Pilar 2 entra. M&iacute;dia paga sem tr&iacute;ade s&oacute;lida queima or&ccedil;amento; com tr&iacute;ade pronta, escala.</p>
     </div>
   </div>
+</section>
+
+<!-- ============ STAT STRIP ============ -->
+<section class="section">
+  <div class="section-label">Produtividade dos s&oacute;cios</div>
+  <h2>Tempo de s&oacute;cio<br><span class="accent">vale dinheiro.</span></h2>
+  <p class="section-intro">A maior alavanca financeira de uma consultoria com equipe enxuta n&atilde;o &eacute; aumentar leads, &eacute; devolver tempo dos s&oacute;cios para o que realmente fecha venda: relacionamento, visita e negocia&ccedil;&atilde;o. O motor existe para isso.</p>
+
+  <div class="stat-strip">
+    <div class="stat-cell">
+      <div class="stat-num">100<span class="accent">&rarr;</span>12</div>
+      <div class="stat-label">de cada 100 leads brutos, s&oacute; 12 qualificados chegam aos s&oacute;cios</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">&lt;30s</div>
+      <div class="stat-label">tempo de resposta do agente de IA, 24h por dia</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">do tempo dos s&oacute;cios dedicado a visita e fechamento</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">0</div>
+      <div class="stat-label">visitas perdidas por demora no atendimento inicial</div>
+    </div>
+  </div>
+
+  <p class="stat-claim">N&atilde;o estamos propondo apenas an&uacute;ncios para captar interessados. Estamos estruturando uma <strong>opera&ccedil;&atilde;o completa</strong> de aquisi&ccedil;&atilde;o, qualifica&ccedil;&atilde;o e convers&atilde;o de investidores imobili&aacute;rios, para que os s&oacute;cios foquem exclusivamente naquilo que gera receita.</p>
 </section>
 
 <!-- ============ ANTES vs DEPOIS ============ -->
@@ -770,10 +915,64 @@
     </ul>
 
     <div class="phase-footer">
-      <strong>Resultado:</strong> opera&ccedil;&atilde;o passa a captar demanda qualificada de forma previs&iacute;vel, com pr&eacute;-atendimento automatizado e leitura de dados orientando cada decis&atilde;o de m&iacute;dia e comercial.
+      <strong>Resultado:</strong> opera&ccedil;&atilde;o passa a captar demanda qualificada de forma previs&iacute;vel, com pr&eacute;-atendimento automatizado e leitura de dados orientando cada decis&atilde;o de m&iacute;dia e comercial. <strong>Time enxuto continua enxuto, o motor &eacute; que escala.</strong>
     </div>
   </div>
 
+</section>
+
+<!-- ============ BASE COMO ATIVO ============ -->
+<section class="section">
+  <div class="section-label">Reten&ccedil;&atilde;o e monetiza&ccedil;&atilde;o</div>
+  <h2>A base de leads<br><span class="accent">&eacute; o ativo perp&eacute;tuo.</span></h2>
+  <p class="section-intro">No mercado imobili&aacute;rio o ciclo de decis&atilde;o &eacute; longo. Muitos investidores n&atilde;o compram na primeira abordagem, e quem compra continua sendo um ativo valioso por anos. O Pilar 2 transforma a base em uma m&aacute;quina de relacionamento, n&atilde;o apenas de gera&ccedil;&atilde;o de leads.</p>
+
+  <div class="asset-grid">
+
+    <div class="asset-card">
+      <div class="asset-num">01</div>
+      <h4>Recupera&ccedil;&atilde;o de leads</h4>
+      <p>Lead que n&atilde;o respondeu n&atilde;o &eacute; lead perdido. Cad&ecirc;ncia automatizada com pelo menos 4 toques estruturados, varia&ccedil;&atilde;o de mensagem por est&aacute;gio e r&eacute;gua trimestral de reativa&ccedil;&atilde;o para a base inteira.</p>
+      <div class="cadence-timeline">
+        <div class="cadence-step"><div class="cadence-dot hot">D0</div><div class="cadence-label">&lt;5min</div></div>
+        <div class="cadence-line"></div>
+        <div class="cadence-step"><div class="cadence-dot hot">D1</div><div class="cadence-label">24h</div></div>
+        <div class="cadence-line"></div>
+        <div class="cadence-step"><div class="cadence-dot warm">D3</div><div class="cadence-label">3 dias</div></div>
+        <div class="cadence-line"></div>
+        <div class="cadence-step"><div class="cadence-dot warm">D7</div><div class="cadence-label">7 dias</div></div>
+        <div class="cadence-line"></div>
+        <div class="cadence-step"><div class="cadence-dot cool">D30</div><div class="cadence-label">30 dias</div></div>
+        <div class="cadence-line"></div>
+        <div class="cadence-step"><div class="cadence-dot cold">D90</div><div class="cadence-label">Reativ.</div></div>
+      </div>
+    </div>
+
+    <div class="asset-card">
+      <div class="asset-num">02</div>
+      <h4>P&oacute;s-venda &amp; reinvestimento</h4>
+      <p>Investidor que aportou hoje &eacute; o pr&oacute;ximo aporte amanh&atilde;. Acompanhamento de janelas de matura&ccedil;&atilde;o, sucesso do cliente e oferta de novas oportunidades alinhadas ao perfil j&aacute; conhecido.</p>
+      <ul>
+        <li>Acompanhamento de janela de aporte</li>
+        <li>Notifica&ccedil;&atilde;o de novas oportunidades por perfil</li>
+        <li>Expans&atilde;o de portf&oacute;lio do investidor</li>
+        <li>Sucesso do cliente p&oacute;s-aquisi&ccedil;&atilde;o</li>
+      </ul>
+    </div>
+
+    <div class="asset-card">
+      <div class="asset-num">03</div>
+      <h4>Programa de indica&ccedil;&atilde;o</h4>
+      <p>Investidor satisfeito vira canal de aquisi&ccedil;&atilde;o. Estrutura&ccedil;&atilde;o de programa de indica&ccedil;&atilde;o com benef&iacute;cios mensur&aacute;veis, transformando reputa&ccedil;&atilde;o em pipeline previs&iacute;vel.</p>
+      <ul>
+        <li>Mec&acirc;nica de indica&ccedil;&atilde;o documentada</li>
+        <li>Benef&iacute;cios claros para o indicador</li>
+        <li>Rastreio de origem da indica&ccedil;&atilde;o no CRM</li>
+        <li>Reativa&ccedil;&atilde;o de base via embaixadores</li>
+      </ul>
+    </div>
+
+  </div>
 </section>
 
 <!-- ============ AGENTE IA - PR&Eacute;VIA ============ -->
@@ -974,6 +1173,23 @@
     </div>
   </div>
 
+</section>
+
+<!-- ============ RESULTADOS ESPERADOS ============ -->
+<section class="section muted">
+  <div class="section-label">O que a opera&ccedil;&atilde;o entrega</div>
+  <h2>Resultados esperados<br><span class="accent">da implanta&ccedil;&atilde;o completa.</span></h2>
+  <p class="section-intro">Os sete outcomes que estruturam o sucesso da opera&ccedil;&atilde;o, do D1 ao longo prazo. Pilar 1 entrega os 3 primeiros; Pilar 2 entrega os 4 seguintes.</p>
+
+  <div class="outcomes-grid">
+    <div class="outcome-item"><div class="outcome-check">&#10003;</div><p>Atrair investidores qualificados</p></div>
+    <div class="outcome-item"><div class="outcome-check">&#10003;</div><p>Filtrar oportunidades atrav&eacute;s de IA e CRM</p></div>
+    <div class="outcome-item"><div class="outcome-check">&#10003;</div><p>Converter leads em visitas qualificadas</p></div>
+    <div class="outcome-item"><div class="outcome-check">&#10003;</div><p>Maximizar a produtividade dos s&oacute;cios</p></div>
+    <div class="outcome-item"><div class="outcome-check">&#10003;</div><p>Criar previsibilidade comercial</p></div>
+    <div class="outcome-item"><div class="outcome-check">&#10003;</div><p>Base de relacionamento de longo prazo</p></div>
+    <div class="outcome-item" style="grid-column: 1 / -1;"><div class="outcome-check">&#10003;</div><p>Gerar caixa rapidamente, sem comprometer a escalabilidade futura</p></div>
+  </div>
 </section>
 
 </div>
