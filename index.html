@@ -409,6 +409,77 @@
     color: var(--brand-bright); margin-bottom: 12px; margin-top: 28px;
   }
 
+  /* === VALORES PADR&Otilde;ES === */
+  .values-stack {
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .value-block {
+    padding: 22px 24px; background: var(--surface);
+    border: 1px solid var(--border); border-radius: 16px;
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    transition: all 0.3s ease;
+  }
+  .value-block:hover { box-shadow: 0 8px 24px rgba(11, 37, 69, 0.06); border-color: var(--border-strong); }
+  .value-block.group { padding: 26px 28px; background: var(--bg-soft); }
+  .value-block .v-content { flex: 1; min-width: 0; }
+  .value-block .v-pillar {
+    font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--brand-bright); margin-bottom: 8px;
+  }
+  .value-block.pilar2 .v-pillar { color: var(--gold); }
+  .value-block ul {
+    list-style: none; display: flex; flex-direction: column; gap: 6px;
+  }
+  .value-block ul li {
+    font-size: 14px; color: var(--ink); font-weight: 500;
+    padding-left: 18px; position: relative; line-height: 1.5;
+  }
+  .value-block ul li::before {
+    content: ''; position: absolute; left: 0; top: 9px;
+    width: 6px; height: 6px; border-radius: 50%; background: var(--brand-bright);
+  }
+  .value-block.pilar2 ul li::before { background: var(--gold); }
+  .value-block .v-single {
+    font-size: 14.5px; color: var(--ink); font-weight: 600; line-height: 1.5;
+  }
+  .value-block .v-price {
+    text-align: right; flex-shrink: 0;
+    font-size: 22px; font-weight: 800;
+    color: var(--faint);
+    text-decoration: line-through;
+    text-decoration-color: var(--red-soft);
+    text-decoration-thickness: 2.5px;
+    letter-spacing: -0.5px;
+  }
+  .value-block .v-price small {
+    display: block; font-size: 9px; font-weight: 700;
+    color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase;
+    margin-top: 4px; text-decoration: none;
+  }
+  .value-disclaimer {
+    margin-top: 26px; padding: 22px 26px;
+    background: var(--brand); color: #fff;
+    border-radius: 14px;
+    display: flex; align-items: flex-start; gap: 16px;
+  }
+  .value-disclaimer .ico {
+    width: 38px; height: 38px; border-radius: 10px;
+    background: rgba(255, 255, 255, 0.12);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .value-disclaimer h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; color: #fff; }
+  .value-disclaimer p { font-size: 13px; line-height: 1.6; color: rgba(255, 255, 255, 0.88); }
+  .value-pilar-divider {
+    display: flex; align-items: center; gap: 14px;
+    margin: 12px 0 4px;
+  }
+  .value-pilar-divider .line { flex: 1; height: 1px; background: var(--border); }
+  .value-pilar-divider .label {
+    font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--muted);
+  }
+
   /* === SIDE BY SIDE === */
   .agreement-grid {
     display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
@@ -490,6 +561,8 @@
     .ba-head.right, .ba-row.right { border-left: none; border-top: 1px solid var(--border); }
     .pillars-grid, .triade-grid, .agreement-grid { grid-template-columns: 1fr; }
     .phase-deliverables { grid-template-columns: 1fr; }
+    .value-block { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .value-block .v-price { text-align: left; align-self: flex-start; font-size: 24px; }
     .phase-card { padding: 32px 22px; }
     .hero-pillars { flex-direction: column; align-items: stretch; }
     .hero-pillar { justify-content: center; }
@@ -784,6 +857,123 @@
       </div>
     </div>
   </div>
+</section>
+
+<!-- ============ VALORES PADR&Otilde;ES ============ -->
+<section class="section">
+  <div class="section-label">Refer&ecirc;ncia de mercado</div>
+  <h2>Valores padr&otilde;es<br><span class="accent">da nossa estrutura.</span></h2>
+  <p class="section-intro">Para dar transpar&ecirc;ncia sobre o que cada bloco vale individualmente, abaixo est&atilde;o os valores de tabela praticados pela Lead Land. <strong style="color: var(--brand);">Estes n&atilde;o s&atilde;o os valores cobrados nesta proposta.</strong> A condi&ccedil;&atilde;o personalizada para a opera&ccedil;&atilde;o de voc&ecirc;s ser&aacute; apresentada no acordo final.</p>
+
+  <div class="value-pilar-divider">
+    <span class="line"></span>
+    <span class="label">Pilar 1, Funda&ccedil;&atilde;o</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="values-stack">
+
+    <!-- Bloco 1: Diagn&oacute;stico + Oferta + Narrativa -->
+    <div class="value-block group">
+      <div class="v-content">
+        <div class="v-pillar">Estrat&eacute;gia de marca</div>
+        <ul>
+          <li>Diagn&oacute;stico estrat&eacute;gico do posicionamento da marca</li>
+          <li>Direcionamento da oferta e percep&ccedil;&atilde;o do produto</li>
+          <li>Constru&ccedil;&atilde;o da linha narrativa e comunica&ccedil;&atilde;o da marca</li>
+        </ul>
+      </div>
+      <div class="v-price">R$ 6.000<small>Tabela</small></div>
+    </div>
+
+    <!-- Site institucional -->
+    <div class="value-block">
+      <div class="v-content">
+        <div class="v-pillar">Presen&ccedil;a digital</div>
+        <div class="v-single">Desenvolvimento do site institucional</div>
+      </div>
+      <div class="v-price">R$ 2.000<small>Tabela</small></div>
+    </div>
+
+    <!-- Perfil Google -->
+    <div class="value-block">
+      <div class="v-content">
+        <div class="v-pillar">Presen&ccedil;a digital</div>
+        <div class="v-single">Implementa&ccedil;&atilde;o e otimiza&ccedil;&atilde;o do Perfil Google</div>
+      </div>
+      <div class="v-price">R$ 1.000<small>Tabela</small></div>
+    </div>
+
+    <!-- Instagram -->
+    <div class="value-block">
+      <div class="v-content">
+        <div class="v-pillar">Presen&ccedil;a digital</div>
+        <div class="v-single">Estrutura&ccedil;&atilde;o inicial da vitrine do Instagram, 12 publica&ccedil;&otilde;es</div>
+      </div>
+      <div class="v-price">R$ 2.000<small>Tabela</small></div>
+    </div>
+
+    <!-- CRM base -->
+    <div class="value-block">
+      <div class="v-content">
+        <div class="v-pillar">Opera&ccedil;&atilde;o comercial</div>
+        <div class="v-single">Estrutura&ccedil;&atilde;o base do CRM e processo comercial</div>
+      </div>
+      <div class="v-price">R$ 2.500<small>Tabela</small></div>
+    </div>
+
+  </div>
+
+  <div class="value-pilar-divider" style="margin-top: 32px;">
+    <span class="line"></span>
+    <span class="label">Pilar 2, Escala</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="values-stack">
+
+    <!-- Tr&aacute;fego pago -->
+    <div class="value-block group pilar2">
+      <div class="v-content">
+        <div class="v-pillar">Performance</div>
+        <ul>
+          <li>Gest&atilde;o de tr&aacute;fego pago</li>
+          <li>Campanhas Meta e Google</li>
+        </ul>
+      </div>
+      <div class="v-price">R$ 3.000<small>Tabela / m&ecirc;s</small></div>
+    </div>
+
+    <!-- IA -->
+    <div class="value-block pilar2">
+      <div class="v-content">
+        <div class="v-pillar">Automa&ccedil;&atilde;o</div>
+        <div class="v-single">Implementa&ccedil;&atilde;o de agentes de IA no pr&eacute;-atendimento</div>
+      </div>
+      <div class="v-price">R$ 2.500<small>Tabela</small></div>
+    </div>
+
+    <!-- CRM completo -->
+    <div class="value-block pilar2">
+      <div class="v-content">
+        <div class="v-pillar">Opera&ccedil;&atilde;o comercial</div>
+        <div class="v-single">CRM completo e acompanhamento da jornada do lead</div>
+      </div>
+      <div class="v-price">R$ 2.500<small>Tabela</small></div>
+    </div>
+
+  </div>
+
+  <div class="value-disclaimer">
+    <div class="ico">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><circle cx="12" cy="12" r="10"/><path d="M12 8 L12 13"/><path d="M12 16 L12 16.01"/></svg>
+    </div>
+    <div>
+      <h4>Estes valores s&atilde;o de refer&ecirc;ncia.</h4>
+      <p>A composi&ccedil;&atilde;o final, com condi&ccedil;&otilde;es e descontos espec&iacute;ficos para a opera&ccedil;&atilde;o de voc&ecirc;s, ser&aacute; apresentada em uma proposta comercial dedicada ap&oacute;s o alinhamento de escopo. O objetivo aqui &eacute; deixar visivel o tamanho real de cada entreg&aacute;vel dentro do mercado.</p>
+    </div>
+  </div>
+
 </section>
 
 </div>
